@@ -20,9 +20,9 @@
 // Constantes servant aux calculs
 const float SOUND_SPEED = 340.0 / 1000;									// Vitesse du son dans l'air en mm/us
 
-/// ---------------------
+/// <summary>
 /// JUANITO_HCSR04 : Objet permettant la gestion du module Ultra-Sons de type HCSR04
-///
+/// </summary>
 class JUANITO_HCSR04
 {
 	public:
