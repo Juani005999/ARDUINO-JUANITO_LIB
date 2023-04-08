@@ -16,6 +16,6 @@ Cette librairie va s'enrichir progressivement de nouveaux objets, au grés des b
 Utilisation :
   - Pour utiliser cette librairie, copiez le répertoire "JUANITO_LIB" dans votre répertoire de librairies Arduino (par défaut : "MesDocuments\Arduino\libraries")
   - Ces objets sont destinés à fonctionner dans des environnements asynchrone. Si votre traitement (Loop) principal contient des pauses ("delay(XX)"), ces objets ne fonctionneront pas correctement.
-  - Vous trouverez des exemples d'implémentation de ces objets dans la rubrique "Sample projects". Dans ces projets, des indications dans le moniteur série vous donneront des informations sur le temps de loop min., le temps de loop max. et la moyenne par loop.
+  - Vous trouverez des exemples d'implémentation de ces objets dans la rubrique "Sample projects". Dans ces projets, des indications dans le moniteur série vous donneront des informations sur le temps de loop min. (ms), le temps de loop max. (ms) et la moyenne par loop.
 
 Enjoy, longue vie et prospérité :)
