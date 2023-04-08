@@ -41,13 +41,13 @@ JUANITO_DHT::Init (int pin, int sensorType, int measureInterval)
 /// Renvoi l'humidité mesurée lors du dernier intervalle
 /// </summary>
 /// <returns></returns>
-float JUANITO_DHT::Humidite()
+float JUANITO_DHT::Humidity()
 {
     // Actualisation des membres interne si nécessaire
     readEnvironment();
 
     // Retour
-    return _humidite;
+    return _humidity;
 }
 
 /// <summary>
@@ -73,7 +73,7 @@ JUANITO_DHT::readEnvironment()
     if (millis() > _chronoLastMesure + _measureInterval)
     {
         // Actualisation des membres internes
-        _humidite = _dht->readHumidity();
+        _humidity = _dht->readHumidity();
         _temperature = _dht->readTemperature();
 
         // Actualisation du chrono

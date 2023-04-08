@@ -26,7 +26,7 @@ class JUANITO_DHT
 		JUANITO_DHT();
 		~JUANITO_DHT();
 		Init(int pin, int sensorType = DHT11, int measureInterval = DHT_SENSOR_DEFAULT_MEASURE_INTERVAL);
-		float Humidite();
+		float Humidity();
 		float Temperature();
 
 	private:
@@ -42,6 +42,6 @@ class JUANITO_DHT
 
 		// Champs internes permettant de retenir les dernières valeures de mesure de température et d'humidité
 		float _temperature;
-		float _humidite;
+		float _humidity;
 		long _chronoLastMesure;
 };
