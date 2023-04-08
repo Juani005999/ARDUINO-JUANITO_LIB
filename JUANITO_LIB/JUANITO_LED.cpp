@@ -1,15 +1,19 @@
 #include "JUANITO_LED.h"
 
-/// ---------------------
+/// <summary>
 /// Constructeur
-///
+/// </summary>
 JUANITO_LED::JUANITO_LED ()
 {
 }
 
-/// ---------------------
+/// <summary>
 /// Initialisation du composant
-///
+/// </summary>
+/// <param name="pin"></param>
+/// <param name="isPWM"></param>
+/// <param name="minValue"></param>
+/// <param name="maxValue"></param>
 JUANITO_LED::Init (int pin, bool isPWM, int minValue, int maxValue)
 {
   _pin = pin;
@@ -28,9 +32,11 @@ JUANITO_LED::Init (int pin, bool isPWM, int minValue, int maxValue)
   pinMode(_pin, OUTPUT);
 }
 
-/// ---------------------
+/// <summary>
 /// Positionne la LED à HIGH ou a _maxValue
-///
+/// </summary>
+/// <param name="setToMaxValue"></param>
+/// <param name="interval"></param>
 JUANITO_LED::On (bool setToMaxValue, int interval)
 {
   // Si auncun intervalle est passé en paramètre, on éxecute direct la commande
@@ -55,9 +61,11 @@ JUANITO_LED::On (bool setToMaxValue, int interval)
   }
 }
 
-/// ---------------------
+/// <summary>
 /// Positionne la LED à LOW ou a _minValue
-///
+/// </summary>
+/// <param name="setToMinValue"></param>
+/// <param name="interval"></param>
 JUANITO_LED::Off (bool setToMinValue, int interval)
 {
   // Si auncun intervalle est passé en paramètre, on éxecute direct la commande
@@ -82,9 +90,10 @@ JUANITO_LED::Off (bool setToMinValue, int interval)
   }
 }
 
-/// ---------------------
+/// <summary>
 /// Positionne la LED à la valeur en paramètre
-///
+/// </summary>
+/// <param name="value"></param>
 JUANITO_LED::SetValue (int value)
 {
   // Méthode disponible uniquement en mode PWN
@@ -106,9 +115,10 @@ JUANITO_LED::SetValue (int value)
   }
 }
 
-/// ----------------------------------
+/// <summary>
 /// Clignotement simple de la LED
-///
+/// </summary>
+/// <param name="interval"></param>
 JUANITO_LED::Blink(int interval)
 {
   // Traitement si plus dans l'intervalle défini
@@ -148,9 +158,10 @@ JUANITO_LED::Blink(int interval)
   }
 }
 
-/// ----------------------------------
-/// Clignotement simple de la LED
-///
+/// <summary>
+/// Clignotement double de la LED
+/// </summary>
+/// <param name="interval"></param>
 JUANITO_LED::DoubleBlink(int interval)
 {
   // Au delà de 5X l'interval, on considère qu'on est sur un nouveau cycle et on repart à l'étape 1
@@ -199,9 +210,11 @@ JUANITO_LED::DoubleBlink(int interval)
   }
 }
 
-/// ----------------------------------
+/// <summary>
 /// Oscillation de la LED
-///
+/// </summary>
+/// <param name="coefInterval"></param>
+/// <param name="reverseOscillation"></param>
 JUANITO_LED::Oscillate(double coefInterval, bool reverseOscillation)
 {
   // Méthode disponible uniquement en mode PWM

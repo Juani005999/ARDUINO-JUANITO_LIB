@@ -1,15 +1,18 @@
 #include "JUANITO_HCSR04.h"
 
-/// ---------------------
+/// <summary>
 /// Constructeur
-///
+/// </summary>
 JUANITO_HCSR04::JUANITO_HCSR04 ()
 {
 }
 
-/// ---------------------
+/// <summary>
 /// Initialisation du composant
-///
+/// </summary>
+/// <param name="pinEcho"></param>
+/// <param name="pinTrigger"></param>
+/// <param name="measureInterval"></param>
 JUANITO_HCSR04::Init (int pinEcho, int pinTrigger, int measureInterval)
 {
     _pinEcho = pinEcho;
@@ -25,9 +28,12 @@ JUANITO_HCSR04::Init (int pinEcho, int pinTrigger, int measureInterval)
     pinMode(_pinTrigger, OUTPUT);
 }
 
-/// ---------------------
+/// <summary>
 /// Renvoi la distance (mm) mesurée par le HCSR04
-///
+/// </summary>
+/// <param name="temperature"></param>
+/// <param name="humidite"></param>
+/// <returns></returns>
 float JUANITO_HCSR04::Distance(float temperature, float humidite)
 {
     // On effectue la mesure si aucune mesure déjà effectuée ou si temps écoulé > interval

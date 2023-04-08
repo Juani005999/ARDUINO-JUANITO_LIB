@@ -15,7 +15,7 @@
 
 // Déclaration des constantes propres à l'objet
 #define DHT_SENSOR_DEFAULT_MEASURE_INTERVAL			4000                // Taux de rafraichissement par défaut des mesures de température et d'humidité
-#define DHT_SENSOR_MIN_MEASURE_INTERVAL				1000                // Taux de rafraichissement par défaut des mesures de température et d'humidité
+#define DHT_SENSOR_MIN_MEASURE_INTERVAL				  1000                // Taux de rafraichissement par défaut des mesures de température et d'humidité
 
 /// <summary>
 /// JUANITO_DHT : Objet permettant la lecture des variables d'environement de température et d'humidité avec un sensor de type Adafruit DHT
@@ -33,7 +33,7 @@ class JUANITO_DHT
 		readEnvironment();
 
 		// Objet interne
-		DHT * _dht;														// Sensor Adafruit DHT
+		DHT * _dht;														                          // Sensor Adafruit DHT
 
 		// Champs valorisés à l'initialisation de l'objet
 		int _pin = -1;
