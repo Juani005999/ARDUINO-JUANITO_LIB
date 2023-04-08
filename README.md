@@ -4,7 +4,7 @@ Librairie d'objets C++ pour développements Arduino
 Cette librairie est en cours de développement.
 Les objets contenus dans cette librairie sont destinés à fonctionner dans des traitements asynchrones (sans "delay(XX)").
 Pour plus d'informations sur les techniques de développement asynchrone, référez-vous à l'utilisation de "millis()" couplée à des chronos plutôt qu'à l'utilisation de "delay(XX)".
-Cette librairie à pour fonction de mutualiser l'implementation de fonctionnalités par la réalisation d'un modèle/objets C++.
+Cette librairie à pour but de mutualiser l'implementation de fonctionnalités par la réalisation d'un modèle/objets C++.
 Ces objets fonctionnent sur le principe suivant :
   - Déclaration de l'objet : dans l'en-tête de votre fichier maître .ino
   - Initialisation de l'objet : dans le setup de votre fichier maître .ino
