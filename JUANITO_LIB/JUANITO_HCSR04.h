@@ -3,7 +3,7 @@
 /// Objet           : JUANITO_HCSR04
 /// Auteur          : Juanito del Pepito
 /// Date            : 04/04/2023
-/// Version         : 1.1.0.2
+/// Version         : 1.1.0.5
 /// Description     : Objet permettant la gestion du module Ultra-Sons de type HCSR04
 ///
 /// ---------------------------------------------------------------------
@@ -28,17 +28,13 @@ class JUANITO_HCSR04
 	public:
 		JUANITO_HCSR04();
 		Init(int pinEcho, int triggerPin, int measureInterval = HCSR04_DEFAULT_MEASURE_INTERVAL);
-		float Distance(float temperature = NAN, float humidite = NAN);
+		float Distance(float temperature = NAN, float humidity = NAN);
 
 	private:
 		// Champs valorisés à l'initialisation de l'objet
 		int _pinEcho = NAN;
 		int _pinTrigger = NAN;
 		int _measureInterval = NAN;
-
-		// Champs internes permettant l'ajustement des calculs par rapport aux conditions de température et d'humidité
-		float _temperature;
-		float _humidite;
 
 		float _distance = NAN;
 		float _distanceCorrigee = NAN;

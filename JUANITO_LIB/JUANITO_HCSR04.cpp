@@ -32,9 +32,9 @@ JUANITO_HCSR04::Init (int pinEcho, int pinTrigger, int measureInterval)
 /// Renvoi la distance (mm) mesurée par le HCSR04
 /// </summary>
 /// <param name="temperature"></param>
-/// <param name="humidite"></param>
+/// <param name="humidity"></param>
 /// <returns></returns>
-float JUANITO_HCSR04::Distance(float temperature, float humidite)
+float JUANITO_HCSR04::Distance(float temperature, float humidity)
 {
     // On effectue la mesure si aucune mesure déjà effectuée ou si temps écoulé > interval
     if (isnan(_distance)
@@ -64,9 +64,9 @@ float JUANITO_HCSR04::Distance(float temperature, float humidite)
         // Calcul de la distance
         _distance = mesure / 2.0 * SOUND_SPEED;
         // Calcul de la distance ajustée en fonction de la température et humidité fournis
-        if (!isnan(temperature) && !isnan(humidite))
+        if (!isnan(temperature) && !isnan(humidity))
         {
-            float speedOfSoundAdjusted = (331.4 + (0.6 * temperature) + (0.0124 * humidite)) / 1000;
+            float speedOfSoundAdjusted = (331.4 + (0.6 * temperature) + (0.0124 * humidity)) / 1000;
             _distanceCorrigee = mesure / 2.0 * speedOfSoundAdjusted;
         }
 
@@ -74,7 +74,7 @@ float JUANITO_HCSR04::Distance(float temperature, float humidite)
         _chronoLastDistance = millis();
     }
     // Retour
-    if (!isnan(temperature) && !isnan(humidite))
+    if (!isnan(temperature) && !isnan(humidity))
         return _distanceCorrigee;
     return _distance;
 }

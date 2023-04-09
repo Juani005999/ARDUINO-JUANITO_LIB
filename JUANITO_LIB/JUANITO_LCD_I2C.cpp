@@ -14,6 +14,7 @@ JUANITO_LCD_I2C::~JUANITO_LCD_I2C()
 {
     // Free de la mémoire en sortant
     free(_lcd);
+    free(_chronoDisplayText);
 }
 
 /// <summary>
@@ -32,6 +33,13 @@ JUANITO_LCD_I2C::Init (int address, int cols, int rows)
     // Initialisation objet LiquidCrystal_I2C
     _lcd = new LiquidCrystal_I2C(_address, _cols, _rows);
 
+    // Création en mémoire d'un tableau de chrono pour chaque caractère d'affichage de l'écran (pour la méthode DisplayText)
+    _chronoDisplayText = new long[_rows * _cols];
+    for (int i = 0; i < _rows * _cols; i++)
+    {
+        *(_chronoDisplayText + i) = 0;
+    }
+
     // Initialisation écran
     _lcd->init();
     _lcd->backlight();
@@ -43,6 +51,8 @@ JUANITO_LCD_I2C::Init (int address, int cols, int rows)
     _lcd->createChar(CARACT_ARROW_LEFT, _leftArrow);
     _lcd->createChar(CARACT_SMILEY, _smiley);
     _lcd->createChar(CARACT_WINK, _wink);
+    _lcd->createChar(CARACT_SMILEY_SAD, _smileySad);
+    _lcd->createChar(CARACT_DEGREE, _degree);
 }
 
 /// <summary>
@@ -67,7 +77,7 @@ JUANITO_LCD_I2C::setCursor (int col, int row)
 /// Wrapper de LiquidCrystal_I2C::print
 /// </summary>
 /// <param name="text"></param>
-JUANITO_LCD_I2C::print (String text)
+JUANITO_LCD_I2C::print (char* text)
 {
     _lcd->print(text);
 }
@@ -76,7 +86,7 @@ JUANITO_LCD_I2C::print (String text)
 /// Wrapper de LiquidCrystal_I2C::println
 /// </summary>
 /// <param name="text"></param>
-JUANITO_LCD_I2C::println (String text)
+JUANITO_LCD_I2C::println (char* text)
 {
     _lcd->println(text);
 }
@@ -86,20 +96,68 @@ JUANITO_LCD_I2C::println (String text)
 /// </summary>
 /// <param name="text"></param>
 /// <param name="row"></param>
-JUANITO_LCD_I2C::PrintRightJustify (String text, int row)
+JUANITO_LCD_I2C::PrintRightJustify (char* text, int row)
 {
+    int textLen = strlen(text);
     // Sécurité sur la ligne
     if (row > _rows)
         row = _rows;
     // Positionnement du texte justifié à droite
-    if (text.length() > 0)
+    if (textLen > 0)
     {
         // Détermination de la position colonne
-        int col = text.length() > _cols ? 0 : _cols - text.length();
+        int col = textLen > _cols ? 0 : _cols - textLen;
 
         // Positionnement curseur et écriture du texte
         _lcd->setCursor(col, row);
         _lcd->print(text);
+    }
+}
+
+/// <summary>
+/// Ecrit un texte sur interval de temps
+/// </summary>
+/// <param name="text"></param>
+/// <param name="row"></param>
+/// <param name="interval"></param>
+JUANITO_LCD_I2C::DisplayText(char* text, int row, int startIndex, int interval)
+{
+    int textLen = strlen(text);
+    if (textLen > 0)
+    {
+        int currentRow = row;
+        // On valide la valeur du paramètre row
+        if (currentRow < 0)
+            currentRow = 0;
+        if (currentRow > _rows)
+            currentRow = _rows;
+
+        // Traitement si plus dans l'interval défini
+        if (millis() > *(_chronoDisplayText + ((currentRow * (_cols)) + startIndex)) + interval)
+        {
+            // Validation de startIndex
+            if (startIndex < 0)
+                startIndex = 0;
+            if (startIndex > _cols - 1)
+                startIndex = _cols - 1;
+            // Recup de stopIndex
+            int stopIndex = _cols - 1;
+
+            // On récupère le texte à écrire sur l'écran
+            char* finalText = malloc(textLen + 1);
+            if (textLen > _cols - startIndex)
+                strncpy(finalText, text, _cols - startIndex);
+            else
+                strcpy(finalText, text);
+
+            // On repositionne le curseur et on écrit finalText
+            _lcd->setCursor(startIndex, currentRow);
+            _lcd->print(finalText);
+            free(finalText);
+
+            // Actualisation du chrono correspondant à la ligne
+            *(_chronoDisplayText + ((currentRow * (_cols)) + startIndex)) = millis();
+        }
     }
 }
 
@@ -110,27 +168,72 @@ JUANITO_LCD_I2C::PrintRightJustify (String text, int row)
 /// <param name="row"></param>
 /// <param name="startIndex"></param>
 /// <param name="width"></param>
-JUANITO_LCD_I2C::PrintScrolling (String text, int row, int startIndex, int width)
+JUANITO_LCD_I2C::DisplayScrollingText(char* text, int row, int startIndex, int width, int interval)
 {
-    // On ne fait rien si on est pas dans l'intervalle
-    if (millis() > SCROLLING_TEXT_UPDATE)
+    int textLen = strlen(text);
+    if (textLen > 0)
     {
-        if (text.length() > 0 && startIndex > 0 && startIndex < _cols)
-        {
-            if (width == -1)
-            {
-                width = _cols - text.length();
-            }
-            _lcd->setCursor(startIndex, row);
-            if (text.length() <= width)
-                _lcd->print(text);
-            else
-            {
-            }
-        }
+        int currentRow = row;
+        // On valide la valeur du paramètre row
+        if (currentRow < 0)
+            currentRow = 0;
+        if (currentRow > _rows)
+            currentRow = _rows;
 
-        // Actualisation du chrono
-        chronoScrolliongText = millis();
+        // Traitement si plus dans l'interval défini
+        if (millis() > _chronoScrolliongText + interval)
+        {
+            // Validation de startIndex
+            if (startIndex < 0)
+                startIndex = 0;
+            if (startIndex > _cols - 1)
+                startIndex = _cols - 1;
+            // Recup de stopIndex en fonction de width et textLen
+            int currentWidth = width == -1 ? _cols - startIndex : width;
+            if (currentWidth > _cols)
+                currentWidth = _cols;
+            if (currentWidth > textLen)
+                currentWidth = textLen;
+
+            // On vérifie si on est toujours de scroller la même chaine, sinon, on reset l'index
+            char bufferCompare[_currentScrollingText.length() + 1];
+            _currentScrollingText.toCharArray(bufferCompare, _currentScrollingText.length() + 1);
+            if (strcmp(text, bufferCompare) != 0)
+                _currentScrollingIndex = 0;
+
+            // On recopie la chaine à écrire dans une chaine temporaire avec allocation mémoire
+            char* currentString = malloc(currentWidth + 1);
+            int borneMax = textLen - _currentScrollingIndex;
+
+            // Validation de la borne max. pour la recopie de string et recopie
+            if (borneMax > currentWidth)
+                borneMax = currentWidth;
+            for (int i = 0; i < borneMax + 1; i++)
+                *(currentString + i) = *(text + i + _currentScrollingIndex);
+
+            // Si nécessaire, on complète avec des " "
+            while (strlen(currentString) < currentWidth + 1)
+                strcat(currentString, " ");
+
+            // On force la caractère de fin de string
+            currentString[currentWidth + 1] = '\0';
+
+            // On écrit sur le LCD
+            _lcd->setCursor(startIndex, currentRow);
+            _lcd->print(currentString);
+
+            // On libère la mémoire allouée localement
+            free(currentString);
+
+            // Actualisation des Flags
+            _currentScrollingIndex++;
+            if (_currentScrollingIndex >= textLen)
+                _currentScrollingIndex = 0;
+            _currentScrollingText = text;
+
+            // Actualisation du chrono
+            _chronoScrolliongText = millis();
+        }
     }
 }
 
@@ -180,4 +283,12 @@ JUANITO_LCD_I2C::Smiley ()
 JUANITO_LCD_I2C::Wink ()
 {
     _lcd->write(byte(CARACT_WINK));
+}
+
+/// <summary>
+/// Ecrit le caractère Degrés
+/// </summary>
+JUANITO_LCD_I2C::Degree()
+{
+    _lcd->write(byte(CARACT_DEGREE));
 }

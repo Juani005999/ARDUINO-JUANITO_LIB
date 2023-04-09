@@ -3,7 +3,7 @@
 /// Objet           : JUANITO_LED
 /// Auteur          : Juanito del Pepito
 /// Date            : 04/04/2023
-/// Version         : 1.1.0.2
+/// Version         : 1.1.0.5
 /// Description     : Objet permettant la gestion d'une LED
 ///                   - Branchez la LED sur une PIN "~PWM" afin de pouvoir piloter le niveau
 ///                   - Si vous branchez la LED sur une PIN "~PWM", positionner le boolean "isPWM" à true à la construction de l'objet
@@ -14,22 +14,22 @@
 #include "Arduino.h"
 
 // Déclaration des constantes propres à l'objet
-#define LED_DEFAULT_SIMPLE_BLINK_INTERVAL			  500					// Intervalle de temps (ms) d'un clignotement simple
-#define LED_DEFAULT_DOUBLE_BLINK_INTERVAL			  100					// Intervalle de temps (ms) d'un clignotement double
-#define LED_DEFAULT_ON_INTERVAL						      100					// Intervalle de temps (ms) sans "renvoi" de la commande ON
-#define LED_DEFAULT_OFF_INTERVAL					      100					// Intervalle de temps (ms) sans "renvoi" de la commande OFF
-#define LED_DEFAULT_OSCILLATE_CHRONO_INTERVAL		10					  // Intervalle de temps (ms) pour l'oscillation minimum
-#define LED_DEFAULT_OSCILLATE_COEF_STD				  20					// Coef standard d'adaptation de l'oscillation
-#define LED_DEFAULT_OSCILLATE_LEVEL_INTERVAL		5					  // Intervalle de niveau entre chaque oscillation
+#define LED_DEFAULT_SIMPLE_BLINK_INTERVAL		500					// Intervalle de temps (ms) d'un clignotement simple
+#define LED_DEFAULT_DOUBLE_BLINK_INTERVAL		100					// Intervalle de temps (ms) d'un clignotement double
+#define LED_DEFAULT_ON_INTERVAL					100					// Intervalle de temps (ms) sans "renvoi" de la commande ON
+#define LED_DEFAULT_OFF_INTERVAL				100					// Intervalle de temps (ms) sans "renvoi" de la commande OFF
+#define LED_DEFAULT_OSCILLATE_CHRONO_INTERVAL	10					// Intervalle de temps (ms) pour l'oscillation minimum
+#define LED_DEFAULT_OSCILLATE_COEF_STD			20					// Coef standard d'adaptation de l'oscillation
+#define LED_DEFAULT_OSCILLATE_LEVEL_INTERVAL	5					// Intervalle de niveau entre chaque oscillation
 
 // Enum définissant les états de la LED
 enum LedState
 {
-  LED_STATE_OFF     = 0,												            // Led éteinte (LOW)
-  LED_STATE_ON      = 1,												            // Led allumée (HIGH)
-  LED_STATE_MIN     = 2,												            // Led à _minValue
-  LED_STATE_MAX     = 3,												            // Led à _maxValue
-  LED_STATE_RANDOM  = 4													            // Led à valeur non définie
+  LED_STATE_OFF     = 0,											// Led éteinte (LOW)
+  LED_STATE_ON      = 1,											// Led allumée (HIGH)
+  LED_STATE_MIN     = 2,											// Led à _minValue
+  LED_STATE_MAX     = 3,											// Led à _maxValue
+  LED_STATE_RANDOM  = 4												// Led à valeur non définie
 };
 
 /// <summary>
