@@ -17,13 +17,13 @@
 #include <LiquidCrystal_I2C.h>
 
 // Déclaration des constantes pour l'association des caractères aux glyphes
-#define CARACT_ARROW_UP                         1                           // Caractère associé au glyphe : Flèche haut
-#define CARACT_ARROW_DOWN                       2                           // Caractère associé au glyphe : Flèche bas
-#define CARACT_ARROW_RIGHT                      3                           // Caractère associé au glyphe : Flèche droite
-#define CARACT_ARROW_LEFT                       4                           // Caractère associé au glyphe : Flèche gauche
-#define CARACT_SMILEY                           5                           // Caractère associé au glyphe : Smiley
-#define CARACT_WINK                             6                           // Caractère associé au glyphe : Clin d'oeil
-#define CARACT_SMILEY_SAD                       10                         // Caractère associé au glyphe : Smiley triste
+#define CARACT_ARROW_UP                         0                           // Caractère associé au glyphe : Flèche haut
+#define CARACT_ARROW_DOWN                       1                           // Caractère associé au glyphe : Flèche bas
+#define CARACT_ARROW_RIGHT                      2                           // Caractère associé au glyphe : Flèche droite
+#define CARACT_ARROW_LEFT                       3                           // Caractère associé au glyphe : Flèche gauche
+#define CARACT_SMILEY                           4                           // Caractère associé au glyphe : Smiley
+#define CARACT_WINK                             5                           // Caractère associé au glyphe : Clin d'oeil
+#define CARACT_SMILEY_SAD                       6                           // Caractère associé au glyphe : Smiley triste
 #define CARACT_DEGREE                           7                           // Caractère associé au glyphe : Degrés
 
 // Déclaration des constantes de settings de l'écran LCD
