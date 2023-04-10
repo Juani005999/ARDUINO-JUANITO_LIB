@@ -195,10 +195,13 @@ JUANITO_LCD_I2C::DisplayScrollingText(char* text, int row, int startIndex, int w
             if (currentWidth > textLen)
                 currentWidth = textLen;
 
-            // On vérifie si on est toujours de scroller la même chaine, sinon, on reset l'index
-            char bufferCompare[_currentScrollingText.length() + 1];
-            _currentScrollingText.toCharArray(bufferCompare, _currentScrollingText.length() + 1);
-            if (strcmp(text, bufferCompare) != 0)
+            //// On vérifie si on est toujours de scroller la même chaine, sinon, on reset l'index
+            //char bufferCompare[_currentScrollingText.length() + 1];
+            //_currentScrollingText.toCharArray(bufferCompare, _currentScrollingText.length() + 1);
+            //if (strcmp(text, bufferCompare) != 0)
+            //    _currentScrollingIndex = 0;
+            // Si l'index actuel est supérieur à la taille de la chaine, on reset le scroll au début
+            if (_currentScrollingIndex > textLen)
                 _currentScrollingIndex = 0;
 
             // On recopie la chaine à écrire dans une chaine temporaire avec allocation mémoire
