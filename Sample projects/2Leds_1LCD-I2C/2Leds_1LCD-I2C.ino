@@ -5,8 +5,8 @@
 /// Version         : 0.0.0.1
 /// Date            : 09/04/2023
 /// Description     : Projet témoin
-///                     - Tuto montrant l'utilisation de l'objet JUANITO_LED et de l'objet JUANITO_LCD_I2C
-///                     - Cet application nécessite l'ajout de la bibliothèque "JUANITO_LIB"
+///                     - Tuto montrant l'utilisation des objets JUANITO_LED et JUANITO_LCD_I2C
+///                     - Ce projet nécessite l'ajout de la bibliothèque "JUANITO_LIB" dans vos librairies Arduino
 ///                     - GitHub : https://github.com/Juani005999/ARDUINO-JUANITO_LIB
 ///
 /// ---------------------------------------------------------------------
@@ -64,10 +64,8 @@ void setup() {
 
   // On affiche un petit message de bienvenue et on attend 2s :)
   lcd.setCursor(0, 0);                                        // Positionnement curseur
-  lcd.print("Hello");                                         // Ecriture synchrone de texte
-  lcd.PrintRightJustify("World  ", 0);                        // Ecriture synchrone alignée à droite
-  lcd.setCursor(15, 0);                                       // Positionnement curseur
   lcd.Smiley();                                               // Ecriture glyphe Smiley
+  lcd.PrintRightJustify("Hello World", 0);                    // Ecriture synchrone alignée à droite
   lcd.setCursor(0, 1);                                        // Positionnement curseur
   lcd.print("Chargement ...");                                // Ecriture synchrone de texte
   delay(2000);
@@ -104,7 +102,7 @@ void loop() {
     blueLed.DoubleBlink();                                        // On fait "double" clignoter la LED bleu
 
     // Actualisation de l'affichage
-    lcd.DisplayText("LED STATE : ON ", 1);                          // Ecriture en Asynchrone d'un texte sur la éème ligne
+    lcd.DisplayText("LED STATE : ON ", 1);                        // Ecriture en Asynchrone d'un texte sur la 2ème ligne
   }
   else
   {
@@ -113,7 +111,7 @@ void loop() {
     blueLed.Off();
 
     // Actualisation de l'affichage
-    lcd.DisplayText("LED STATE : OFF", 1);                          // Ecriture en Asynchrone d'un texte sur la éème ligne
+    lcd.DisplayText("LED STATE : OFF", 1);                        // Ecriture en Asynchrone d'un texte sur la 2ème ligne
   }
 }
 

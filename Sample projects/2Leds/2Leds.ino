@@ -8,7 +8,7 @@
 ///                     - Tuto montrant l'utilisation de l'objet JUANITO_LED en mode ~PWM et non ~PWM
 ///                     - En mode ~PWM, vous pouvez piloter la valeur de la LED.
 ///                     - En mode NON ~PWM, certaines fonctionnalités ne sont pas disponible comme led.SetValue ou led.oscillate
-///                     - Cet application nécessite l'ajout de la bibliothèque "JUANITO_LIB"
+///                     - Ce projet nécessite l'ajout de la bibliothèque "JUANITO_LIB" dans vos librairies Arduino
 ///                     - GitHub : https://github.com/Juani005999/ARDUINO-JUANITO_LIB
 ///
 /// ---------------------------------------------------------------------
@@ -77,7 +77,7 @@ void loop() {
   // Positionnement des LEDs en fonction de l'action en cours
   if (ledsOn)
   {
-    yellowLed.Blink(800);                                         // On fait clignoter la LED jaune en forcant l'intervalle par défaut (500 ms) à 800 ms
+    yellowLed.Blink(800);                                         // On fait clignoter la LED jaune en forcant l'intervalle (par défaut 500 ms) à 800 ms
     blueLed.DoubleBlink();                                        // On fait "double" clignoter la LED bleu
   }
   else

@@ -6,7 +6,7 @@
 /// Date            : 09/04/2023
 /// Description     : Projet témoin
 ///                     - Tuto montrant l'utilisation des objets JUANITO_LED, JUANITO_LCD_I2C, JUANITO_DHT
-///                     - Cet application nécessite l'ajout de la bibliothèque "JUANITO_LIB"
+///                     - Ce projet nécessite l'ajout de la bibliothèque "JUANITO_LIB" dans vos librairies Arduino
 ///                     - GitHub : https://github.com/Juani005999/ARDUINO-JUANITO_LIB
 ///
 /// ---------------------------------------------------------------------
@@ -51,8 +51,9 @@ float temperature = NAN;
 float lastTemperature = NAN;                                  // Flag permettant de connaitre l'évolution de la température par rapport à la dernière mesure
 float humidite = NAN;
 long chronoEnvironment;
-char envirronementTexte[50] = "";                             // Chaine de caractère servant à stocker le texte relatif aux conditions d'envirorronement
-                                                              // La manipulation d'objet String est couteuse en ressources et performance, cette chaine est donc actualisée sur Interval
+char environementTexte[50] = "";                              // Chaine de caractère servant à stocker le texte relatif aux conditions d'envirorronement
+                                                              // La manipulation d'objet String est couteuse en ressources et performances,
+                                                              // cette chaine est donc actualisée sur Interval
 
 // Déclaration des variables nécessaire aux mesures des temps de Loop
 long lastLoopTime = 0;                                        // DEBUG : Flag de lecture de l'interval mini
@@ -111,12 +112,11 @@ void loop() {
 
   // Actualisation des mesures d'environnement
   humidite = dht.Humidity();                                      // Lecture asynchrone du taux d'humidité (mesure effectuée toute les DHT_SENSOR_INTERVAL ms)
-  temperature = dht.Temperature();                                // Lecture asynchrone de al température (mesure effectuée toute les DHT_SENSOR_INTERVAL ms)
+  temperature = dht.Temperature();                                // Lecture asynchrone de la température (mesure effectuée toute les DHT_SENSOR_INTERVAL ms)
 
   // Actualisation du texte relatif aux conditions de température et d'humidité et affichage du texte sur l'écran LCD
-  UpdateEnvirronmentText();
-  lcd.DisplayScrollingText(envirronementTexte, 0, 0, -1, 1000);   // Texte défilant : sur ligne indice 0, StartIndex indice 0, Longueur max de l'écran, avecun interval de scroll de 1s
-                                                                  // Dès que le texte change, le défilement reprend au début
+  UpdateEnvironmentText();
+  lcd.DisplayScrollingText(environementTexte, 0, 0, -1, 1000);    // Texte défilant : sur ligne indice 0, StartIndex indice 0, Longueur max de l'écran, avecun interval de scroll de 1s
 
   // Positionnement des LEDs et de l'affichage LCD en fonction de l'action en cours
   if (ledsOn)
@@ -149,12 +149,12 @@ void SetActionState()
 }
 
 /// --------------------------------
-/// Mise à jour du texte relatif aux conditions d'envirronement
-/// La manipulation de l'objet String est couteuse en ressources et en performance
+/// Mise à jour du texte relatif aux conditions d'environnement
+/// La manipulation de l'objet String est couteuse en ressources et en performances
 /// => L'actualisation de cette chaine est effectuée par intervalle
 /// Les mesures sont actualisées toute les 4s => on utilise le même interval pour actualiser la chaine
 ///
-void UpdateEnvirronmentText()
+void UpdateEnvironmentText()
 {
   // On effectue aucun traitement si on est dessous de l'interval
   if (millis() > chronoEnvironment + DHT_SENSOR_INTERVAL)
@@ -182,12 +182,12 @@ void UpdateEnvirronmentText()
       lastTemperature = temperature;
       
       // On recopie le résultat dans la chaine finale
-      envText.toCharArray(envirronementTexte, envText.length() >= 50 ? 50 : envText.length() + 1);
+      envText.toCharArray(environementTexte, envText.length() >= 50 ? 50 : envText.length() + 1);
     }
     else
     {
       // Pas de données d'env. à afficher => message par défaut
-      strcpy(envirronementTexte, "Aucune donnee   ");
+      strcpy(environementTexte, "Aucune donnee   ");
     }
 
     // Actualisation du chrono
