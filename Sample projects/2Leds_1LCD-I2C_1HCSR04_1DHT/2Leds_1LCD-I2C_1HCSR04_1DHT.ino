@@ -49,7 +49,7 @@ JUANITO_DHT dht = JUANITO_DHT();                              // Sensor DHT11 de
 // Flags interne d'action en cours
 volatile bool mesureOn = false;                               // volatile car son état est modifié par le biais d'une interruption
 
-// Déclaration des variables nécessaires à la mesure des variables d'environnement (température et humidité)
+// Déclaration des variables nécessaires à la mesure des distances
 long lastMesure = -1;                                         // Dernière mesure effectuée
 long lastCompareMesure = -1;                                  // Sauvegarde de la dernière mesure effectuée à titre de comparaison
 long chronoMesure;
@@ -133,7 +133,7 @@ void loop() {
 
   // Actualisation de la mesure de distance si mesure en cours
   if (mesureOn)                                                   // Lecture asynchrone de la distance mesurée (mesure effectuée toute les HCSR04_MEASURE_INTERVAL ms)
-    lastMesure = hcsr04.Distance(temperature, humidite);          // Le calcul de la distance est corrigé en fonction des conditions de température et d'humidité
+    lastMesure = hcsr04.Distance(temperature, humidite);          // La mesure de la distance est corrigé en fonction des conditions de température et d'humidité
 
   // Actualisation du texte relatif à la mesure de distance et d'environnement
   UpdateDistanceText();
