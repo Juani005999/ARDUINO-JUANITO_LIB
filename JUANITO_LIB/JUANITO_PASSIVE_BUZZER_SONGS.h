@@ -1,4 +1,20 @@
+/// ---------------------------------------------------------------------
+///
+/// Objet           : JUANITO_PASSIVE_BUZZER_SONGS
+/// Auteur          : Juanito del Pepito
+/// Date            : 04/04/2023
+/// Version         : 1.1.0.5
+/// Description     : Bibliothèque de morceau pour l'objet JUANITO_PASSIVE_BUZZER
+/// !! ATTENTION !!
+///                     - L'utilisation de beaucoup de morceaux, et/ou de morceaux "long" est gourmande en ressources
+///                     - Utilisez 1 morceau, 2 max
+///                     - Si vous abusez, vous risquez fort d'arriver vite aux limites de votre Arduino :)
+///
+/// ---------------------------------------------------------------------
 
+/// <summary>
+/// bip
+/// </summary>
 const int bipSize = 4;
 const int bipTempo = 140;
 const int bip[bipSize][3] =
@@ -9,6 +25,9 @@ const int bip[bipSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_BLANCHE }
 };
 
+/// <summary>
+/// doubleBip
+/// </summary>
 const int doubleBipSize = 5;
 const int doubleBipTempo = 140;
 const int doubleBip[doubleBipSize][3] =
@@ -20,6 +39,9 @@ const int doubleBip[doubleBipSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_BLANCHE }
 };
 
+/// <summary>
+/// tripleBip
+/// </summary>
 const int tripleBipSize = 8;
 const int tripleBipTempo = 140;
 const int tripleBip[tripleBipSize][3] =
@@ -34,6 +56,9 @@ const int tripleBip[tripleBipSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_NOIRE }
 };
 
+/// <summary>
+/// sirene
+/// </summary>
 const int sireneSize = 3;
 const int sireneTempo = 120;
 const int sirene[sireneSize][3] =
@@ -43,6 +68,9 @@ const int sirene[sireneSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_BLANCHE }
 };
 
+/// <summary>
+/// standardSirene
+/// </summary>
 const int standardSireneSize = 7;
 const int standardSireneTempo = 120;
 const int standardSirene [standardSireneSize][3] =
@@ -56,6 +84,9 @@ const int standardSirene [standardSireneSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_CROCHE }
 };
 
+/// <summary>
+/// darkSideOfTheMoon
+/// </summary>
 const int darkSideOfTheMoonSize = 5;
 const int darkSideOfTheMoonTempo = 120;
 const int darkSideOfTheMoon [darkSideOfTheMoonSize][3] =
@@ -67,6 +98,9 @@ const int darkSideOfTheMoon [darkSideOfTheMoonSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_RONDE }
 };
 
+/// <summary>
+/// smokeOnTheWater
+/// </summary>
 const int smokeOnTheWaterSize = 18;
 const int smokeOnTheWaterTempo = 100;
 const int smokeOnTheWater [smokeOnTheWaterSize][3] =
@@ -94,6 +128,9 @@ const int smokeOnTheWater [smokeOnTheWaterSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_NOIRE }
 };
 
+/// <summary>
+/// highwayToHell
+/// </summary>
 const int highwayToHellSize = 25;
 const int highwayToHellTempo = 125;
 const int highwayToHell [highwayToHellSize][3] =
@@ -125,6 +162,9 @@ const int highwayToHell [highwayToHellSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_CROCHE }
 };
 
+/// <summary>
+/// hellsBells
+/// </summary>
 const int hellsBellsSize = 32;
 const int hellsBellsTempo = 100;
 const int hellsBells [hellsBellsSize][3] =
@@ -165,6 +205,9 @@ const int hellsBells [hellsBellsSize][3] =
   //{ PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_RONDE }
 };
 
+/// <summary>
+/// iWantYouBack
+/// </summary>
 const int iWantYouBackSize = 31;
 const int iWantYouBackTempo = 102;
 const int iWantYouBack [iWantYouBackSize][3] =
@@ -207,6 +250,9 @@ const int iWantYouBack [iWantYouBackSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_NOIRE }
 };
 
+/// <summary>
+/// themeRencontre3Type
+/// </summary>
 const int themeRencontre3TypeSize = 6;
 const int themeRencontre3TypeTempo = 102;
 const int themeRencontre3Type [themeRencontre3TypeSize][3] =
@@ -219,6 +265,9 @@ const int themeRencontre3Type [themeRencontre3TypeSize][3] =
   { PASSIVE_BUZZER_SILENT, 1, PASSIVE_BUZZER_NOTE_BLANCHE }
 };
 
+/// <summary>
+/// themeStarTrekIntro
+/// </summary>
 const int themeStarTrekIntroSize = 15;
 const int themeStarTrekIntroTempo = 180;
 const int themeStarTrekIntro [themeStarTrekIntroSize][3] =
@@ -239,6 +288,9 @@ const int themeStarTrekIntro [themeStarTrekIntroSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_RONDE }
 };
 
+/// <summary>
+/// themeStarTrek
+/// </summary>
 const int themeStarTrekSize = 21;
 const int themeStarTrekTempo = 102;
 const int themeStarTrek [themeStarTrekSize][3] =
@@ -269,6 +321,9 @@ const int themeStarTrek [themeStarTrekSize][3] =
   { PASSIVE_BUZZER_SILENT, 0, PASSIVE_BUZZER_NOTE_RONDE }
 };
 
+/// <summary>
+/// themeStarWars
+/// </summary>
 const int themeStarWarsSize = 31;
 const int themeStarWarsTempo = 180;
 const int themeStarWars [themeStarWarsSize][3] =

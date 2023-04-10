@@ -1,6 +1,6 @@
 /// ---------------------------------------------------------------------
 ///
-/// Objet           : JUANITO_LED
+/// Objet           : JUANITO_PASSIVE_BUZZER
 /// Auteur          : Juanito del Pepito
 /// Date            : 04/04/2023
 /// Version         : 1.1.0.5
