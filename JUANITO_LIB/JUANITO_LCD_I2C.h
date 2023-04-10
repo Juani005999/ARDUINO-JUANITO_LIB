@@ -58,7 +58,6 @@ class JUANITO_LCD_I2C
         Smiley();
         Wink();
         Degree();
-        Percent();
 
     private:
         // Objet interne

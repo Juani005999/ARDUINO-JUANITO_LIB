@@ -163,6 +163,7 @@ void loop() {
     // Si hors limites constructeur (2cm -> 4m)
     if (lastMesure < HCSR04_MEASURE_BORNE_MIN || lastMesure > HCSR04_MEASURE_BORNE_MAX)
     {
+      buzzer.StopSong();                                          // Réinitialisation du morceau en cours de lecture
       blueLed.On();                                               // On positionne la LED bleue à HIGH
     }
     // Sinon, si lastMesure < 10cm
@@ -199,6 +200,7 @@ void loop() {
     // On éteint les LEDs
     yellowLed.Off();
     blueLed.Off();
+    buzzer.StopSong();                                            // Réinitialisation du morceau en cours de lecture
 
     // Actualisation de l'affichage
     if (lastMesure != -1)

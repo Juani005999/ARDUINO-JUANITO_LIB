@@ -1,9 +1,9 @@
 /// ---------------------------------------------------------------------
 ///
-/// Objet           : JUANITO_PASSIVE_BUZZER
+/// Objet           : JUANITO_LED
 /// Auteur          : Juanito del Pepito
 /// Date            : 04/04/2023
-/// Version         : 1.1.0.1
+/// Version         : 1.1.0.5
 /// Description     : Objet permettant la gestion d'un buzzer passif
 ///
 /// ---------------------------------------------------------------------
@@ -49,6 +49,7 @@ class JUANITO_PASSIVE_BUZZER
     JUANITO_PASSIVE_BUZZER();
     Init(int pin);
     SoundOn(int freq);
+    PlayNote(int note = PASSIVE_BUZZER_NOTE_LA, int octave = PASSIVE_BUZZER_OCTAVE_3);
     PlaySong(int* morceau = NULL, int tempo = 120, int nbNotes = 0);
     StopSong();
     PlayCurrentNote();
