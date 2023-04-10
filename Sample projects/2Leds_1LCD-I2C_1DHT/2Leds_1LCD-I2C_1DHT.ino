@@ -27,11 +27,6 @@
 #define LED_BLUE_MIN_VALUE                1                   // Valeur minimale de la LED bleue
 #define LED_BLUE_MAX_VALUE                5                   // Valeur maximale de la LED bleue
 
-// Déclarations des constantes nécessaire à l'affichage (LCD) : Ces valeurs sont identiques aux valeurs par défaut donc leur utilisation est optionnelle
-#define LCD_ADDRESS                       0x27                // Adresse du LCD sur le bus I2C
-#define LCD_COLS                          16                  // Nombre de colonnes du LCD
-#define LCD_ROWS                          2                   // Nombre de lignes du LCD
-
 // Déclaration des constantes relatives au Sensor DHT (température et humidité)
 #define DHT_SENSOR_TYPE                   DHT11               // Type de Sensor [DHT11|DHT12|DHT21|DHT22|AM2301]
 #define DHT_SENSOR_PIN                    8                   // PIN du Sensor de température et d'humidité
@@ -46,12 +41,12 @@ JUANITO_DHT dht = JUANITO_DHT ();                             // Sensor DHT11 de
 // Flags interne d'action en cours
 bool ledsOn;
 
-// Déclaration des variables nécessaires à la mesure des variables d'envirronement (température et humidité)
+// Déclaration des variables nécessaires à la mesure des variables d'environnement (température et humidité)
 float temperature = NAN;
 float lastTemperature = NAN;                                  // Flag permettant de connaitre l'évolution de la température par rapport à la dernière mesure
 float humidite = NAN;
 long chronoEnvironment;
-char environementTexte[50] = "";                              // Chaine de caractère servant à stocker le texte relatif aux conditions d'envirorronement
+char environementTexte[50] = "";                              // Chaine de caractère servant à stocker le texte relatif aux conditions d'environnement
                                                               // La manipulation d'objet String est couteuse en ressources et performances,
                                                               // cette chaine est donc actualisée sur Interval
 
@@ -73,15 +68,15 @@ void setup() {
   Serial.println("Program started");
 
   // Initialisation des objets internes
-  lcd.Init(LCD_ADDRESS, LCD_COLS, LCD_ROWS);                                            // Ecran LCD I2C 16 X 2
-  yellowLed.Init(PIN_LED_YELLOW, true, LED_YELLOW_MIN_VALUE, LED_YELLOW_MAX_VALUE);     // PIN en mode ~PWM
-  blueLed.Init(PIN_LED_BLUE, true, LED_YELLOW_MIN_VALUE, LED_YELLOW_MAX_VALUE);         // PIN en mode ~PWM
+  lcd.Init();                                                                           // Ecran LCD I2C [par défaut, Adresse 0x27, 16 colonnes, 2 lignes]
+  yellowLed.Init(PIN_LED_YELLOW, true, LED_YELLOW_MIN_VALUE, LED_YELLOW_MAX_VALUE);     // LED jaune : PIN en mode ~PWM
+  blueLed.Init(PIN_LED_BLUE, true, LED_YELLOW_MIN_VALUE, LED_YELLOW_MAX_VALUE);         // LED bleue : PIN en mode ~PWM
   dht.Init(DHT_SENSOR_PIN, DHT_SENSOR_TYPE, DHT_SENSOR_INTERVAL);                       // Sensor DHT11 de température et d'humidité
 
   // Définition du mode PIN du bouton Push
   pinMode(PIN_PUSH_ACTION, INPUT_PULLUP);
 
-  // On affiche un petit message de bienvenue et on attend 2s :)
+  // On affiche un petit message de bienvenue et on attend 4s :)
   lcd.setCursor(0, 0);                                        // Positionnement curseur
   lcd.Smiley();                                               // Ecriture glyphe Smiley
   lcd.PrintRightJustify("Hello World", 0);                    // Ecriture synchrone alignée à droite
@@ -116,7 +111,8 @@ void loop() {
 
   // Actualisation du texte relatif aux conditions de température et d'humidité et affichage du texte sur l'écran LCD
   UpdateEnvironmentText();
-  lcd.DisplayScrollingText(environementTexte, 0, 0, -1, 1000);    // Texte défilant : sur ligne indice 0, StartIndex indice 0, Longueur max de l'écran, avecun interval de scroll de 1s
+  lcd.DisplayScrollingText(environementTexte, 0, 0, -1, 1000);    // Texte défilant
+                                                                  // => sur ligne indice 0, StartIndex indice 0, Longueur max de l'écran, avec un interval de scroll de 1s
 
   // Positionnement des LEDs et de l'affichage LCD en fonction de l'action en cours
   if (ledsOn)
@@ -159,10 +155,10 @@ void UpdateEnvironmentText()
   // On effectue aucun traitement si on est dessous de l'interval
   if (millis() > chronoEnvironment + DHT_SENSOR_INTERVAL)
   {
-    // Si température et humidité ne sont pas défini
+    // Si température et humidité sont définies
     if (!isnan(temperature) && !isnan(humidite))
     {
-      // On formate la phrase souhaitée dans un objet String (manipulation plus aisée des string)
+      // On formate la phrase souhaitée dans un objet String (manipulation plus aisée)
       String envText = "Temp.:" + String(temperature, 1) + "\7C / Hum.:" + String(humidite, 0) + "% ";
 
       // Détermination du glyphe en fonction de l'évolution par rapport à la dernière mesure
