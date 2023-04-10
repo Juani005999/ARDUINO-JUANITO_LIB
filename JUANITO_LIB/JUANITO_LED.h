@@ -44,7 +44,7 @@ class JUANITO_LED
 		Off(bool setToMinValue = false, int interval = LED_DEFAULT_OFF_INTERVAL);
 		Blink(int interval = LED_DEFAULT_SIMPLE_BLINK_INTERVAL);
 		DoubleBlink(int interval = LED_DEFAULT_DOUBLE_BLINK_INTERVAL);
-		Oscillate(double coefInterval = -1, bool reverseOscillation = false);
+		Oscillate(float coefInterval = -1, bool reverseOscillation = false);
 		SetValue (int value);
 
 	private:

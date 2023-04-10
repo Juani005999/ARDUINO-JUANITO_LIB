@@ -1,11 +1,11 @@
 /// ---------------------------------------------------------------------
 ///
-/// Projet          : 2Leds_1LCD-I2C
+/// Projet          : 2Leds_1LCD-I2C_1DHT
 /// Auteur          : Juanito del Pepito
 /// Version         : 0.0.0.1
 /// Date            : 09/04/2023
 /// Description     : Projet témoin
-///                     - Tuto montrant l'utilisation de l'objet JUANITO_LED et de l'objet JUANITO_LCD_I2C
+///                     - Tuto montrant l'utilisation des objets JUANITO_LED, JUANITO_LCD_I2C, JUANITO_DHT
 ///                     - Cet application nécessite l'ajout de la bibliothèque "JUANITO_LIB"
 ///                     - GitHub : https://github.com/Juani005999/ARDUINO-JUANITO_LIB
 ///
@@ -17,13 +17,15 @@
 #include <JUANITO_DHT.h>
 
 // Déclaration des constantes correspondant aux PIN
-#define PIN_LED_YELLOW                    3                   // LED Jaune sur PIN ~PWM => on pourra piloter sa valeur
-#define PIN_LED_BLUE                      4                   // LED Bleue sur PIN NON ~PWM => uniquement 2 valeurs possible HIGH et LOW
+#define PIN_LED_YELLOW                    3                   // LED Jaune sur PIN ~PWM
+#define PIN_LED_BLUE                      5                   // LED Bleue sur PIN ~PWM
 #define PIN_PUSH_ACTION                   7                   // Push button pour activation des Leds
 
 // Déclaration des constantes propres à l'application
 #define LED_YELLOW_MIN_VALUE              1                   // Valeur minimale de la LED jaune
 #define LED_YELLOW_MAX_VALUE              50                  // Valeur maximale de la LED jaune
+#define LED_BLUE_MIN_VALUE                1                   // Valeur minimale de la LED bleue
+#define LED_BLUE_MAX_VALUE                5                   // Valeur maximale de la LED bleue
 
 // Déclarations des constantes nécessaire à l'affichage (LCD) : Ces valeurs sont identiques aux valeurs par défaut donc leur utilisation est optionnelle
 #define LCD_ADDRESS                       0x27                // Adresse du LCD sur le bus I2C
@@ -71,8 +73,8 @@ void setup() {
 
   // Initialisation des objets internes
   lcd.Init(LCD_ADDRESS, LCD_COLS, LCD_ROWS);                                            // Ecran LCD I2C 16 X 2
-  yellowLed.Init(PIN_LED_YELLOW, true, LED_YELLOW_MIN_VALUE, LED_YELLOW_MAX_VALUE);     // PIN en mode ~PWM : on valorise isPwm à true afin de piloter les valeurs min et max de la LED
-  blueLed.Init(PIN_LED_BLUE);                                                           // PIN en mode NON ~PWM : initialisation simple avec les valeurs par défaut
+  yellowLed.Init(PIN_LED_YELLOW, true, LED_YELLOW_MIN_VALUE, LED_YELLOW_MAX_VALUE);     // PIN en mode ~PWM
+  blueLed.Init(PIN_LED_BLUE, true, LED_YELLOW_MIN_VALUE, LED_YELLOW_MAX_VALUE);         // PIN en mode ~PWM
   dht.Init(DHT_SENSOR_PIN, DHT_SENSOR_TYPE, DHT_SENSOR_INTERVAL);                       // Sensor DHT11 de température et d'humidité
 
   // Définition du mode PIN du bouton Push
@@ -121,7 +123,7 @@ void loop() {
   {
     // Clignotement des LEDs
     yellowLed.Blink();                                            // Clignotement de la LED jaune
-    blueLed.DoubleBlink();                                        // Clignotement "double" de la LED bleue
+    blueLed.Oscillate(0.1);                                       // Oscillation de la LED bleue avec un facteur 10 de l'oscillation de référence
 
     // Actualisation de l'affichage
     lcd.DisplayText("LED STATE : ON ", 1);                        // Ecriture en Asynchrone d'un texte sur la 2ème ligne

@@ -215,7 +215,7 @@ JUANITO_LED::DoubleBlink(int interval)
 /// </summary>
 /// <param name="coefInterval"></param>
 /// <param name="reverseOscillation"></param>
-JUANITO_LED::Oscillate(double coefInterval, bool reverseOscillation)
+JUANITO_LED::Oscillate(float coefInterval, bool reverseOscillation)
 {
   // Méthode disponible uniquement en mode PWM
   if (_isPWM)
